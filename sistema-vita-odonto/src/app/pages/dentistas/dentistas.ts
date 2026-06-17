@@ -73,8 +73,8 @@ export class Dentistas implements OnInit {
     });
   }
 
-  desativar(usuario: any) {
-    this.dentistaService.desativar(usuario.id).subscribe(() => this.ngOnInit());
+  desativar(dentista: any) {
+    this.dentistaService.desativar(dentista.id).subscribe(() => this.ngOnInit());
   }
 }
 

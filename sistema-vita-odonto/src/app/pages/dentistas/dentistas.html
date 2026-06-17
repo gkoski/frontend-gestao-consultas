@@ -31,7 +31,6 @@
         <h2 class="text-xl mt-5 ml-5 mb-5 text-[#1B3A6B] font-semibold">Resultado</h2>
         <div class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm">
 
-            <!-- TABELA: só desktop -->
             <table class="w-full table-fixed text-center border-collapse hidden lg:table">
                 <thead>
                     <tr class="text-sm text-gray-500 border-b border-gray-200">
@@ -73,10 +72,12 @@
                                     (click)="abrirModalEditarD(dentista)">
                                     <mat-icon>mode_edit_outline</mat-icon>
                                 </button>
-                                <button (click)="desativar(dentista.id)" title="Desativar"
+                                @if (dentista.ativo) {
+                                <button (click)="desativar(dentista)" title="Desativar"
                                     class="grid place-items-center w-9 h-9 rounded-full text-red-600 hover:bg-red-50 cursor-pointer">
                                     <mat-icon>highlight_off</mat-icon>
                                 </button>
+                                }
                             </div>
                         </td>
                     </tr>
@@ -84,7 +85,6 @@
                 </tbody>
             </table>
 
-            <!-- CARDS: só mobile -->
             <div class="lg:hidden flex flex-col gap-3">
                 @for (dentista of dentistasFiltrados; track dentista.id) {
                 <div class="border border-gray-100 rounded-2xl p-4">
@@ -100,6 +100,7 @@
                     <p class="text-xs text-gray-500">{{ dentista.email }}</p>
                     <p class="text-xs text-gray-500 mb-2">CRO: {{ dentista.cro }}</p>
 
+
                     <div class="flex flex-wrap gap-1 mb-3">
                         @for (e of dentista.especialidades; track e.id) {
                         <span class="text-xs bg-blue-50 text-[#1B3A6B] px-2 py-0.5 rounded-md">
@@ -114,10 +115,12 @@
                             (click)="abrirModalEditarD(dentista)">
                             <mat-icon>mode_edit_outline</mat-icon>
                         </button>
-                        <button (click)="desativar(dentista.id)" title="Desativar"
+                        @if (dentista.ativo) {
+                        <button (click)="desativar(dentista)" title="Desativar"
                             class="grid place-items-center w-9 h-9 rounded-full text-red-600 hover:bg-red-50 cursor-pointer">
                             <mat-icon>highlight_off</mat-icon>
                         </button>
+                        }
                     </div>
                 </div>
                 }

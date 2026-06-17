@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>Nova consulta</h2>
+
+<mat-dialog-content class="flex flex-col">
+    <mat-form-field class="w-full">
+        <mat-label>Paciente</mat-label>
+        <mat-select [(ngModel)]="idPaciente">
+            @for (p of pacientes; track p.id) {
+            <mat-option [value]="p.id">{{ p.nome }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>Dentista</mat-label>
+        <mat-select [(ngModel)]="idDentista">
+            @for (d of dentistas; track d.id) {
+            <mat-option [value]="d.id">{{ d.nome }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>Descrição</mat-label>
+        <input matInput [(ngModel)]="descricao">
+    </mat-form-field>
+
+    <!-- Início: data (só calendário) + hora (select) -->
+    <div class="flex gap-2">
+        <mat-form-field class="flex-1">
+            <mat-label>Data início</mat-label>
+            <input matInput readonly [matDatepicker]="pickerInicio" [(ngModel)]="dataInicio"
+                (click)="pickerInicio.open()">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+            <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="w-28">
+            <mat-label>Hora</mat-label>
+            <mat-select [(ngModel)]="horaInicio">
+                @for (h of horarios; track h) {
+                <mat-option [value]="h">{{ h }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <!-- Fim: data + hora -->
+    <div class="flex gap-2">
+        <mat-form-field class="flex-1">
+            <mat-label>Data fim</mat-label>
+            <input matInput readonly [matDatepicker]="pickerFim" [(ngModel)]="dataFim" (click)="pickerFim.open()">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerFim"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFim></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="w-28">
+            <mat-label>Hora</mat-label>
+            <mat-select [(ngModel)]="horaFim">
+                @for (h of horarios; track h) {
+                <mat-option [value]="h">{{ h }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="salvar()">Salvar</button>
+</mat-dialog-actions>

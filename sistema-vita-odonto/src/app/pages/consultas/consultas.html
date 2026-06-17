@@ -1,0 +1,110 @@
+<header class="flex items-center justify-between w-full">
+    <h1 class="text-3xl mt-5 ml-5 mb-5 text-[#1B3A6B] font-bold">Consultas</h1>
+    <button mat-flat-button color="primary" class="mr-5" (click)="abrirModalCriar(consultas)">
+        <mat-icon fontIcon="add"></mat-icon>
+        Criar
+    </button>
+</header>
+
+<div class="bg-[#FAFBFF] p-4 lg:p-6">
+    <div>
+        <form>
+            <mat-card class="!shadow-sm">
+                <mat-card-content>
+                    <mat-form-field class="w-full">
+                        <mat-label>Buscar por paciente ou dentista:</mat-label>
+                        <input type="text" name="nome" placeholder="Digite o nome para busca" matInput
+                            [(ngModel)]="nomeBusca">
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-flat-button color="primary" (click)="buscar()">
+                        <mat-icon fontIcon="search"></mat-icon>
+                        Buscar
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+
+    <div>
+        <h2 class="text-xl mt-5 ml-5 mb-5 text-[#1B3A6B] font-semibold">Resultado</h2>
+        <div class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm">
+
+            <!-- TABELA: só no desktop -->
+            <table class="w-full table-fixed text-center border-collapse hidden lg:table">
+                <thead>
+                    <tr class="text-sm text-gray-500 border-b border-gray-200">
+                        <th class="pb-2 font-medium">ID</th>
+                        <th class="pb-2 font-medium">Paciente</th>
+                        <th class="pb-2 font-medium">Dentista</th>
+                        <th class="pb-2 font-medium">Data/hora</th>
+                        <th class="pb-2 font-medium">Status</th>
+                        <th class="pb-2 font-medium">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (consulta of consultasFiltradas; track consulta.id) {
+                    <tr class="border-b border-gray-100">
+                        <td class="py-3 text-sm">{{ consulta.id }}</td>
+                        <td class="py-3 text-sm font-medium">{{ consulta.nomePaciente }}</td>
+                        <td class="py-3 text-sm font-medium">{{ consulta.nomeDentista }}</td>
+                        <td class="py-3 text-sm font-medium">{{ consulta.dataInicio | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td class="py-3 text-sm">
+                            <span class="text-xs px-2 py-1 rounded-md" [ngClass]="{
+                              'bg-blue-50 text-[#1B3A6B]': consulta.status === 'AGENDADA',
+                              'bg-emerald-50 text-emerald-700': consulta.status === 'FINALIZADA',
+                              'bg-red-50 text-red-700': consulta.status === 'CANCELADA'
+                            }">
+                                {{ consulta.status }}
+                            </span>
+                        </td>
+                        <td class="py-3">
+                            <div class="flex justify-center">
+                                @if (consulta.status === 'AGENDADA') {
+                                <button (click)="abrirCancelamento(consulta)" title="Cancelar"
+                                    class="grid place-items-center w-9 h-9 rounded-full text-red-600 hover:bg-red-50 cursor-pointer">
+                                    <mat-icon>block</mat-icon>
+                                </button>
+                                } @else {
+                                <span class="text-gray-300">—</span>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- CARDS: só no mobile -->
+            <div class="lg:hidden flex flex-col gap-3">
+                @for (consulta of consultasFiltradas; track consulta.id) {
+                <div class="border border-gray-100 rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-gray-400">#{{ consulta.id }}</span>
+                        <span class="text-xs px-2 py-1 rounded-md" [ngClass]="{
+                          'bg-blue-50 text-[#1B3A6B]': consulta.status === 'AGENDADA',
+                          'bg-emerald-50 text-emerald-700': consulta.status === 'FINALIZADA',
+                          'bg-red-50 text-red-700': consulta.status === 'CANCELADA'
+                        }">
+                            {{ consulta.status }}
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-800">{{ consulta.nomePaciente }}</p>
+                    <p class="text-xs text-gray-500 mb-2">{{ consulta.nomeDentista }}</p>
+                    <p class="text-xs text-gray-500">{{ consulta.dataInicio | date:'dd/MM/yyyy HH:mm' }}</p>
+
+                    @if (consulta.status === 'AGENDADA') {
+                    <button (click)="abrirCancelamento(consulta)"
+                        class="flex items-center gap-1 mt-3 text-sm text-red-600 cursor-pointer">
+                        <mat-icon class="!text-[18px] !w-[18px] !h-[18px]">block</mat-icon>
+                        Cancelar
+                    </button>
+                    }
+                </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

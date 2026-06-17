@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Cancelar consulta</h2>
+
+<mat-dialog-content>
+    <p class="text-sm text-gray-600 mb-2">Informe o motivo do cancelamento:</p>
+    <mat-form-field class="w-full">
+        <mat-label>Motivo</mat-label>
+        <input matInput [(ngModel)]="motivo">
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Voltar</button>
+    <button mat-flat-button color="warn" (click)="confirmar()">Confirmar cancelamento</button>
+</mat-dialog-actions>

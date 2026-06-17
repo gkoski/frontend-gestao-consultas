@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class DentistaService {
-    private apiUrl = 'http://localhost:8080/dentistas';
+    private apiUrl = `${environment.apiUrl}/dentistas`;
 
     constructor(private http: HttpClient) { }
 
@@ -24,6 +25,6 @@ export class DentistaService {
     }
 
     desativar(id: number) {
-        return this.http.put<any>(`${this.apiUrl}/${id}/desativar`, {});
+        return this.http.patch(`${this.apiUrl}/${id}/desativar`, {});
     }
 }

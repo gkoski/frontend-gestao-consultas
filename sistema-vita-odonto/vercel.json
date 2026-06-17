@@ -1,5 +1,4 @@
 {
-    "outputDirectory": "dist/sistema-vita-odonto/browser",
     "rewrites": [
         {
             "source": "/(.*)",

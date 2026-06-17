@@ -1,0 +1,36 @@
+<h2 mat-dialog-title class="text-[#1B3A6B]">Criar Usuário</h2>
+
+<mat-dialog-content class="flex flex-col gap-2">
+    <mat-form-field class="w-full">
+        <mat-label>Nome:</mat-label>
+        <input matInput [(ngModel)]="nome">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>CPF:</mat-label>
+        <input matInput mask="000.000.000-00" [(ngModel)]="cpf">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>Email:</mat-label>
+        <input matInput [(ngModel)]="email">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>Senha:</mat-label>
+        <input matInput [(ngModel)]="senha">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>Perfil</mat-label>
+        <mat-select [(ngModel)]="perfil">
+            <mat-option value="ADMIN">Admin</mat-option>
+            <mat-option value="DENTISTA">Dentista</mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="salvar()">Salvar</button>
+</mat-dialog-actions>

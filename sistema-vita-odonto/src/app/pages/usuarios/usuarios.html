@@ -1,0 +1,122 @@
+<header class="flex items-center justify-between w-full">
+    <h1 class="text-3xl mt-5 ml-5 mb-5 text-[#1B3A6B] font-bold">Usuários</h1>
+    <button mat-flat-button color="primary" class="mr-5" (click)="abrirModalCriarU(usuarios)">
+        <mat-icon fontIcon="add"></mat-icon>
+        Criar
+    </button>
+</header>
+
+<div class="bg-[#FAFBFF] p-4 lg:p-6">
+    <div>
+        <form>
+            <mat-card class="!shadow-sm">
+                <mat-card-content>
+                    <mat-form-field class="w-full">
+                        <mat-label>Nome do usuário:</mat-label>
+                        <input type="text" name="nome" placeholder="Digite o nome para busca" matInput
+                            [(ngModel)]="nomeBusca">
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-flat-button color="primary" (click)="buscar()">
+                        <mat-icon fontIcon="search"></mat-icon>
+                        Buscar
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+
+    <div>
+        <h2 class="text-xl mt-5 ml-5 mb-5 text-[#1B3A6B] font-semibold">Resultado</h2>
+        <div class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm">
+
+            <!-- TABELA: só desktop -->
+            <table class="w-full table-fixed text-center border-collapse hidden lg:table">
+                <thead>
+                    <tr class="text-sm text-gray-500 border-b border-gray-200">
+                        <th class="pb-2 font-medium">ID</th>
+                        <th class="pb-2 font-medium">Nome</th>
+                        <th class="pb-2 font-medium">CPF</th>
+                        <th class="pb-2 font-medium">Email</th>
+                        <th class="pb-2 font-medium">Perfil</th>
+                        <th class="pb-2 font-medium">Status</th>
+                        <th class="pb-2 font-medium">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (usuario of usuariosFiltrados; track usuario.id) {
+                    <tr class="border-b border-gray-100">
+                        <td class="py-3 text-sm">{{ usuario.id }}</td>
+                        <td class="py-3 text-sm font-medium">{{ usuario.nome }}</td>
+                        <td class="py-3 text-sm">{{ usuario.cpf }}</td>
+                        <td class="py-3 text-sm">{{ usuario.email }}</td>
+                        <td class="py-3 text-sm">{{ usuario.perfil }}</td>
+                        <td class="py-3 text-sm">
+                            <span class="text-xs px-2 py-1 rounded-md"
+                                [ngClass]="usuario.ativo ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'">
+                                {{ usuario.ativo ? 'Ativo' : 'Inativo' }}
+                            </span>
+                        </td>
+                        <td class="py-3">
+                            <div class="flex flex-col gap-2 items-center">
+                                <button title="Editar"
+                                    class="grid place-items-center w-9 h-9 rounded-full text-[#F4C430] transition-0.3 hover:bg-[#FBE7B5] cursor-pointer"
+                                    (click)="abrirModalEditarU(usuarios)">
+                                    <mat-icon>mode_edit_outline</mat-icon>
+                                </button>
+                                <button title="Redefinir Senha"
+                                    class="grid place-items-center w-9 h-9 rounded-full text-[#F4C430] transition-0.3 hover:bg-[#FBE7B5] cursor-pointer"
+                                    (click)="resetarSenha(usuario)">
+                                    <mat-icon>restart_alt</mat-icon>
+                                </button>
+                                <button title="Deletar" (click)="deletar(usuario)"
+                                    class="grid place-items-center w-9 h-9 rounded-full text-red-600 hover:bg-red-50 cursor-pointer">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- CARDS: só mobile -->
+            <div class="lg:hidden flex flex-col gap-3">
+                @for (usuario of usuariosFiltrados; track usuario.id) {
+                <div class="border border-gray-100 rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-gray-400">#{{ usuario.id }}</span>
+                        <span class="text-xs px-2 py-1 rounded-md"
+                            [ngClass]="usuario.ativo ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'">
+                            {{ usuario.ativo ? 'Ativo' : 'Inativo' }}
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-800">{{ usuario.nome }}</p>
+                    <p class="text-xs text-gray-500">CPF: {{ usuario.cpf }}</p>
+                    <p class="text-xs text-gray-500">{{ usuario.email }}</p>
+                    <p class="text-xs text-gray-500 mb-3">Perfil: {{ usuario.perfil }}</p>
+
+                    <div class="flex gap-2">
+                        <button title="Editar"
+                            class="grid place-items-center w-9 h-9 rounded-full text-[#F4C430] hover:bg-[#FBE7B5] cursor-pointer"
+                            (click)="abrirModalEditarU(usuarios)">
+                            <mat-icon>mode_edit_outline</mat-icon>
+                        </button>
+                        <button title="Redefinir Senha"
+                            class="grid place-items-center w-9 h-9 rounded-full text-[#F4C430] hover:bg-[#FBE7B5] cursor-pointer"
+                            (click)="resetarSenha(usuario)">
+                            <mat-icon>restart_alt</mat-icon>
+                        </button>
+                        <button title="Deletar" (click)="deletar(usuario)"
+                            class="grid place-items-center w-9 h-9 rounded-full text-red-600 hover:bg-red-50 cursor-pointer">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

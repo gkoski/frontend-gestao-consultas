@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Resetar senha</h2>
+
+<mat-dialog-content>
+    <p class="text-sm text-gray-600 mb-2">
+        Definir nova senha para <strong>{{ data.nome }}</strong>
+    </p>
+
+    <mat-form-field class="w-full">
+        <mat-label>Nova senha</mat-label>
+        <input matInput type="password" [(ngModel)]="novaSenha">
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="salvar()">Salvar</button>
+</mat-dialog-actions>

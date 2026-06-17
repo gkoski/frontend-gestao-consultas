@@ -1,0 +1,60 @@
+<div class="flex min-h-screen bg-[#FAFBFF]">
+
+    <button (click)="toggleMenu()" aria-label="Abrir menu"
+        class="lg:hidden fixed top-4 left-4 z-50 grid place-items-center w-10 h-10 rounded-lg bg-[#1B3A6B] text-white">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    @if (menuAberto) {
+    <div (click)="fecharMenu()" class="lg:hidden fixed inset-0 bg-black/40 z-30"></div>
+    }
+
+    <aside
+        class="w-[250px] bg-white shadow-sm z-40 fixed lg:static inset-y-0 left-0 transition-transform duration-300 lg:translate-x-0"
+        [class.translate-x-0]="menuAberto" [class.-translate-x-full]="!menuAberto">
+        <nav class="flex flex-col p-4 gap-2">
+            <h2 class="text-xl font-bold text-[#1B3A6B] mb-4 ml-3">Vita Odonto</h2>
+            <div class="flex flex-col-2">
+                <div class="flex items-center gap-3 px-1 py-3 border-t border-gray-100 mt-auto">
+                    <span class=" grid place-items-center w-10 h-10 rounded-full bg-blue-50">
+                        <mat-icon class="text-[#1B3A6B]">person</mat-icon>
+                    </span>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">{{ authService.getPerfil() === 'ADMIN' ?
+                            'Administrador' : 'Dentista' }}</p>
+                        <p class="text-xs text-gray-500">{{ authService.getEmail() }}</p>
+                    </div>
+                </div>
+
+                <button (click)="authService.logout()" title="Sair da conta" aria-label="Sair da conta"
+                    class="flex items-center gap-2 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 cursor-pointer">
+                    <mat-icon>logout</mat-icon>
+                </button>
+            </div>
+
+            <a routerLink="/dashboard" routerLinkActive="bg-[#FBE7B5] text-[#1B3A6B] font-medium" (click)="fecharMenu()"
+                class="px-3 py-2 rounded-lg text-gray-700 hover:bg-[#FBE7B5] cursor-pointer">Dashboard</a>
+            <a routerLink="/consultas" routerLinkActive="bg-[#FBE7B5] text-[#1B3A6B] font-medium" (click)="fecharMenu()"
+                class="px-3 py-2 rounded-lg text-gray-700 hover:bg-[#FBE7B5] cursor-pointer">Consultas</a>
+            <a routerLink="/pacientes" routerLinkActive="bg-[#FBE7B5] text-[#1B3A6B] font-medium" (click)="fecharMenu()"
+                class="px-3 py-2 rounded-lg text-gray-700 hover:bg-[#FBE7B5] cursor-pointer">Pacientes</a>
+
+            @if (authService.isAdmin()) {
+            <a routerLink="/dentistas" routerLinkActive="bg-[#FBE7B5] text-[#1B3A6B] font-medium" (click)="fecharMenu()"
+                class="px-3 py-2 rounded-lg text-gray-700 hover:bg-[#FBE7B5] cursor-pointer">Dentistas</a>
+            <a routerLink="/especialidades" routerLinkActive="bg-[#FBE7B5] text-[#1B3A6B] font-medium"
+                (click)="fecharMenu()"
+                class="px-3 py-2 rounded-lg text-gray-700 hover:bg-[#FBE7B5] cursor-pointer">Especialidades</a>
+            <a routerLink="/usuarios" routerLinkActive="bg-[#FBE7B5] text-[#1B3A6B] font-medium" (click)="fecharMenu()"
+                class="px-3 py-2 rounded-lg text-gray-700 hover:bg-[#FBE7B5] cursor-pointer">Usuários</a>
+            <a routerLink="/relatorios" routerLinkActive="bg-[#FBE7B5] text-[#1B3A6B] font-medium"
+                (click)="fecharMenu()"
+                class="px-3 py-2 rounded-lg text-gray-700 hover:bg-[#FBE7B5] cursor-pointer">Relatórios</a>
+            }
+        </nav>
+    </aside>
+
+    <main class="flex-1 w-full min-w-0 p-4 pt-16 lg:pt-6 overflow-x-hidden">
+        <router-outlet></router-outlet>
+    </main>
+</div>

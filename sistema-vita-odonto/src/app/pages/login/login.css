@@ -1,0 +1,50 @@
+::ng-deep .mat-mdc-form-field .mdc-text-field {
+    border-radius: 25px !important;
+    padding-left: 20px !important;
+    width: 90% !important;
+}
+
+::ng-deep .mat-mdc-card {
+    box-shadow: none !important;
+}
+
+::ng-deep .mat-mdc-unelevated-button {
+    background-color: #1B3A6B !important;
+    color: white !important;
+    width: 88% !important;
+    border-radius: 25px !important;
+    display: block !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+::ng-deep .mat-button-toggle-group {
+    border-radius: 9999px !important;
+    border: 1px solid #1B3A6B !important;
+    width: 100%;
+}
+
+::ng-deep .mat-button-toggle {
+    color: #1B3A6B !important;
+    background: white !important;
+}
+
+::ng-deep .mat-button-toggle-checked {
+    background: #1B3A6B !important;
+    color: white !important;
+}
+
+::ng-deep .mat-button-toggle-checked .mat-button-toggle-label-content {
+    color: white !important;
+}
+
+::ng-deep .mat-button-toggle-checked .mat-pseudo-checkbox-checked {
+    color: white !important;
+}
+
+::ng-deep .mat-pseudo-checkbox-checked::after {
+    color: white !important;
+    border-color: white !important;
+}

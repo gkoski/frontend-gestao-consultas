@@ -1,0 +1,42 @@
+<body class="bg-[#FAFBFF]">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="bg-white rounded-3xl shadow-lg p-8 w-full max-w-md">
+            <h1 class="text-center text-[#1B3A6B] font-bold text-2xl mb-4">Vita Odonto</h1>
+
+            <form>
+                <mat-card>
+                    <div class="flex justify-center text-[#1B3A6B] mb-5">
+                        <mat-card-header>
+                            <mat-card-title>Faça Login</mat-card-title>
+                        </mat-card-header>
+                    </div>
+
+                    <mat-card-content>
+                        <div class="flex justify-center">
+                            <mat-form-field class="w-full flex items-center mb-2">
+                                <mat-label>Email:</mat-label>
+                                <input type="email" name="email" placeholder="Digite seu email" matInput
+                                    [(ngModel)]="email" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <mat-form-field class="w-full flex items-center">
+                                <mat-label>Senha:</mat-label>
+                                <input type="password" name="senha" placeholder="Digite sua senha" matInput
+                                    [(ngModel)]="senha" required>
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-flat-button (click)="login()">Entrar</button>
+                    </mat-card-actions>
+
+                </mat-card>
+
+            </form>
+        </div>
+
+    </div>
+</body>

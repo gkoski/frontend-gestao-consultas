@@ -1,0 +1,13 @@
+<h2 mat-dialog-title class="text-[#1B3A6B]">Criar Especialidade</h2>
+
+<mat-dialog-content class="flex flex-col gap-2">
+    <mat-form-field class="w-full">
+        <mat-label>Nome:</mat-label>
+        <input matInput [(ngModel)]="nome">
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="salvar()">Salvar</button>
+</mat-dialog-actions>

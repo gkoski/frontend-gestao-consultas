@@ -1,0 +1,90 @@
+<header class="flex items-center justify-between w-full">
+    <h1 class="text-3xl mt-5 ml-5 mb-5 text-[#1B3A6B] font-bold">Pacientes</h1>
+    <button mat-flat-button color="primary" class="mr-5" (click)="abrirModalCriarP(pacientes)">
+        <mat-icon fontIcon="add"></mat-icon>
+        Criar
+    </button>
+</header>
+
+<div class="bg-[#FAFBFF] p-4 lg:p-6">
+    <div>
+        <form>
+            <mat-card class="!shadow-sm">
+                <mat-card-content>
+                    <mat-form-field class="w-full">
+                        <mat-label>Nome do paciente:</mat-label>
+                        <input type="text" name="nome" placeholder="Digite o nome para busca" matInput
+                            [(ngModel)]="nomeBusca">
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-flat-button color="primary" (click)="buscar()">
+                        <mat-icon fontIcon="search"></mat-icon>
+                        Buscar
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+
+    <div>
+        <h2 class="text-xl mt-5 ml-5 mb-5 text-[#1B3A6B] font-semibold">Resultado</h2>
+        <div class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm">
+
+            <!-- TABELA: só desktop -->
+            <table class="w-full table-fixed text-center border-collapse hidden lg:table">
+                <thead>
+                    <tr class="text-sm text-gray-500 border-b border-gray-200">
+                        <th class="pb-2 font-medium">ID</th>
+                        <th class="pb-2 font-medium">Nome</th>
+                        <th class="pb-2 font-medium">CPF</th>
+                        <th class="pb-2 font-medium">Email</th>
+                        <th class="pb-2 font-medium">Telefone</th>
+                        <th class="pb-2 font-medium">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (paciente of pacientesFiltrados; track paciente.id) {
+                    <tr class="border-b border-gray-100">
+                        <td class="py-3 text-sm">{{ paciente.id }}</td>
+                        <td class="py-3 text-sm font-medium">{{ paciente.nome }}</td>
+                        <td class="py-3 text-sm">{{ paciente.cpf }}</td>
+                        <td class="py-3 text-sm">{{ paciente.email }}</td>
+                        <td class="py-3 text-sm">{{ paciente.telefone }}</td>
+                        <td class="py-3">
+                            <div class="flex flex-col gap-2 items-center">
+                                <button title="Editar"
+                                    class="grid place-items-center w-9 h-9 rounded-full text-[#F4C430] transition-0.3 hover:bg-[#FBE7B5] cursor-pointer"
+                                    (click)="abrirModalEditarP(paciente)">
+                                    <mat-icon>mode_edit_outline</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- CARDS: só mobile -->
+            <div class="lg:hidden flex flex-col gap-3">
+                @for (paciente of pacientesFiltrados; track paciente.id) {
+                <div class="border border-gray-100 rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-gray-400">#{{ paciente.id }}</span>
+                        <button title="Editar"
+                            class="grid place-items-center w-9 h-9 rounded-full text-[#F4C430] hover:bg-[#FBE7B5] cursor-pointer"
+                            (click)="abrirModalEditarP(paciente)">
+                            <mat-icon>mode_edit_outline</mat-icon>
+                        </button>
+                    </div>
+                    <p class="text-sm font-medium text-gray-800">{{ paciente.nome }}</p>
+                    <p class="text-xs text-gray-500">CPF: {{ paciente.cpf }}</p>
+                    <p class="text-xs text-gray-500">{{ paciente.email }}</p>
+                    <p class="text-xs text-gray-500">Tel: {{ paciente.telefone }}</p>
+                </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

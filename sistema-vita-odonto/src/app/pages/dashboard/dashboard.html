@@ -1,0 +1,91 @@
+<header class="flex items-center justify-between w-full">
+    <h1 class="text-3xl mt-5 ml-5 mb-5 text-[#1B3A6B] font-bold">Dashboard</h1>
+</header>
+
+<div class="bg-[#FAFBFF]">
+    <div class="min-h-screen p-4 lg:p-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <mat-card class="!rounded-3xl !p-auto">
+                <span class="flex ml-2 gap-2 mt-2">
+                    <mat-icon class="mt-1">calendar_month</mat-icon>
+                    <h2 class="text-[#1B3A6B] text-lg font-medium mb-4 mt-1">Total de Consultas</h2>
+                </span>
+                <mat-card-content>
+                    <h2 class="font-medium text-2xl mt-3 ml-4">{{ totalConsultas }}</h2>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="!rounded-3xl !p-auto">
+                <span class="flex ml-2 gap-1 mt-2">
+                    <mat-icon class="mt-1">schedule</mat-icon>
+                    <h2 class="text-[#1B3A6B] text-lg font-medium mb-4 mt-1">Agendadas</h2>
+                </span>
+                <mat-card-content>
+                    <h2 class="font-medium text-2xl mt-3 ml-4">{{ agendadas }}</h2>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="!rounded-3xl !p-auto">
+                <span class="flex ml-2 gap-1 mt-2">
+                    <mat-icon class="mt-1">check_circle_outline</mat-icon>
+                    <h2 class="text-[#1B3A6B] text-lg font-medium mb-4 mt-1">Finalizadas</h2>
+                </span>
+                <mat-card-content>
+                    <h2 class="font-medium text-2xl mt-3 ml-4">{{ finalizadas }}</h2>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="!rounded-3xl !p-auto">
+                <span class="flex ml-2 gap-1 mt-2">
+                    <mat-icon class="mt-1">check_circle_outline</mat-icon>
+                    <h2 class="text-[#1B3A6B] text-lg font-medium mb-4 mt-1">Taxa de cancelamento</h2>
+                </span>
+                <mat-card-content>
+                    <h2 class="font-medium text-2xl mt-3 ml-4">{{ taxaCancelamento }}</h2>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-5">
+            <mat-card class="!rounded-3xl !p-auto">
+                <span class="flex justify-start ml-5 mt-2 gap-2">
+                    <h2 class="text-[#1B3A6B] text-lg font-medium mb-4">Próximas consultas</h2>
+                </span>
+                <mat-card-content>
+                    @for (c of proximasConsultas; track c.id) {
+                    <div class="flex items-center gap-4 py-3 border-t border-gray-100">
+                        <span class="text-sm font-medium text-gray-500 w-16 leading-tight">
+                            {{ c.dataInicio | date:'dd/MM' }}<br>{{ c.dataInicio | date:'HH:mm' }}
+                        </span>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-800">{{ c.nomePaciente }}</p>
+                            <p class="text-xs text-gray-500">{{ c.nomeDentista }} · {{ c.descricao }}</p>
+                        </div>
+                        <span class="text-xs px-2 py-1 rounded-md bg-blue-50 text-[#1B3A6B]">Agendada</span>
+                    </div>
+                    }
+                    @if (proximasConsultas.length === 0) {
+                    <p class="text-sm text-gray-400 py-3">Nenhuma consulta agendada.</p>
+                    }
+                </mat-card-content>
+            </mat-card>
+
+            <div>
+                <mat-card class=" !rounded-3xl !pb-10">
+                    <h2 class="text-[#1B3A6B] text-lg font-medium mb-4 ml-5 mt-1">Consultas por status</h2>
+                    <div class="h-64 flex justify-center">
+                        <canvas baseChart [type]="'doughnut'" [data]="dadosStatus" [options]="opcoes"></canvas>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="mt-5 mb-8">
+            <mat-card class="!rounded-3xl !p-auto">
+                <h2 class="text-[#1B3A6B] text-lg font-medium ml-5 mt-2 gap-2">Consultas por dentista</h2>
+                <div class="h-72">
+                    <canvas baseChart [type]="'bar'" [data]="dadosPorDentista" [options]="opcoes"></canvas>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
